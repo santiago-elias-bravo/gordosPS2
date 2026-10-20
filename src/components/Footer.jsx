@@ -15,8 +15,7 @@ function Footer() {
             </h5>
             <p className="text-secondary mb-0">
               Tu lugar para encontrar videojuegos
-              originales de PlayStation 2,
-              nuevos y usados.
+              originales de PlayStation 2.
             </p>
           </Col>
 

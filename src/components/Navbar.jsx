@@ -25,24 +25,13 @@ function NavbarTienda() {
             <Nav.Link as={Link} to="/">
               Inicio
             </Nav.Link>
-
             <Nav.Link as={Link} to="/productos">
               Videojuegos
             </Nav.Link>
-
-            <Nav.Link as={Link} to="/productos?estado=nuevo">
-              Nuevos
-            </Nav.Link>
-
-            <Nav.Link as={Link} to="/productos?estado=usado">
-              Usados
-            </Nav.Link>
-
             <Nav.Link as={Link} to="/contacto">
               Contacto
             </Nav.Link>
           </Nav>
-
           <Nav>
             <Nav.Link as={Link} to="/carrito">
               🛒 Carrito <Badge bg="primary">2</Badge>
