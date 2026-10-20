@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router";
+import { Route, Routes } from "react-router-dom";
 import Inicio from "./pages/Inicio";
 import Productos from "./pages/Productos";
 import DetalleProducto from "./pages/DetalleProducto";
@@ -22,7 +22,7 @@ function App() {
         <Route path="*" element={<NotFound />} />
       </Routes>
 
-      <Footer/>
+      <Footer />
     </>
   );
 }
