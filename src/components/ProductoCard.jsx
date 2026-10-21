@@ -1,9 +1,9 @@
+
 function ProductoCard() {
   return (
-    <div>
-      
-    </div>
+    <div>ProductoCard</div>
   )
 }
 
 export default ProductoCard
+

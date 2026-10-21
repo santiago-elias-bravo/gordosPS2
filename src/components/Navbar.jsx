@@ -1,5 +1,5 @@
 
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import Container from "react-bootstrap/Container";
@@ -34,7 +34,7 @@ function NavbarTienda() {
           </Nav>
           <Nav>
             <Nav.Link as={Link} to="/carrito">
-              🛒 Carrito <Badge bg="primary">2</Badge>
+              🛒 Carrito <Badge bg="primary">0</Badge>
             </Nav.Link>
           </Nav>
         </Navbar.Collapse>
