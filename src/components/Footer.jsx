@@ -30,7 +30,7 @@ function Footer() {
               </li>
               <li>
                 <Link className="link-light text-decoration-none"
-                  to="/productos">
+                  to="/videojuegos">
                   Catálogo
                 </Link>
               </li>

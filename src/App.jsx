@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 import Inicio from "./pages/Inicio";
 import Productos from "./pages/Productos";
@@ -8,12 +8,78 @@ import Carrito from "./pages/Carrito";
 import NotFound from "./pages/NotFound";
 import FinalizarCompra from "./pages/FinalizarCompra";
 import ConfirmacionCompra from "./pages/ConfirmacionCompra";
+import { productos } from "./data/productos";
 
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 
 function App() {
-  const [carrito, setCarrito] = useState([]);
+  const [carrito, setCarrito] = useState(() => {
+    try {
+    const carritoGuardado = localStorage.getItem("carrito");
+    if (!carritoGuardado) {
+      return [];
+    }
+    const productosGuardados = JSON.parse(carritoGuardado);
+    if (!Array.isArray(productosGuardados)) {
+      return [];
+    }
+    const carritoValidado = productosGuardados
+      .map((item) => {
+        const productoActual = productos.find(
+          (producto) => producto.id === item.id
+        );
+
+        if (!productoActual || productoActual.stock <= 0) {
+          return null;
+        }
+
+        if (!Number.isInteger(item.cantidad) || item.cantidad <= 0) {
+          return null;
+        }
+
+        const cantidadValidada = Math.min(item.cantidad,productoActual.stock);
+
+        return {...productoActual,cantidad: cantidadValidada};
+      })
+      .filter((item) => item !== null);
+
+    return carritoValidado;
+
+  } catch (error) {
+    console.error("Error al recuperar el carrito:", error);
+    return [];
+  }
+  });
+
+  const [cuponAplicado, setCuponAplicado] = useState(() => {
+    try {
+      const cuponGuardado =
+        localStorage.getItem("cuponAplicado") === "true";
+
+      return carrito.length > 0 && cuponGuardado;
+    } catch (error) {
+      console.error("Error al recuperar el cupón:", error);
+      return false;
+    }
+  });
+
+  useEffect(() => {
+    try {
+      localStorage.setItem("carrito", JSON.stringify(carrito));
+    } catch (error) {
+      console.error("Error al guardar el carrito:", error);
+    }
+  }, [carrito]);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem("cuponAplicado", JSON.stringify(cuponAplicado));
+    } catch (error) {
+      console.error("Error al guardar el cupón:", error);
+    }
+  }, [cuponAplicado]);
+  
   const cantidadTotal = carrito.reduce(
     (total, producto) => total + producto.cantidad,
     0
@@ -58,9 +124,15 @@ function App() {
     );
   }
   function eliminarDelCarrito(id) {
-    setCarrito((carritoActual) =>
-      carritoActual.filter((item) => item.id !== id),
+    const carritoActualizado = carrito.filter(
+      (item) => item.id !== id
     );
+
+    setCarrito(carritoActualizado);
+
+    if (carritoActualizado.length === 0) {
+      setCuponAplicado(false);
+    }
   }
   return (
     <>
@@ -68,11 +140,11 @@ function App() {
       <Routes>
         <Route path="/" element={<Inicio />} />
         <Route
-          path="/productos"
+          path="/videojuegos"
           element={<Productos agregarAlCarrito={agregarAlCarrito} carrito={carrito}/>}
         />
         <Route
-          path="/productos/:id"
+          path="/videojuegos/:id"
           element={<DetalleProducto agregarAlCarrito={agregarAlCarrito} carrito={carrito}/>}
         />
         <Route path="/contacto" element={<Contacto />} />
@@ -83,6 +155,8 @@ function App() {
               carrito={carrito}
               cambiarCantidad={cambiarCantidad}
               eliminarDelCarrito={eliminarDelCarrito}
+              cuponAplicado={cuponAplicado}
+              setCuponAplicado={setCuponAplicado}
             />
           }
         />

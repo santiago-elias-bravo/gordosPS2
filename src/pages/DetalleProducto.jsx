@@ -55,7 +55,7 @@ function DetalleProducto({ agregarAlCarrito, carrito }) {
         <h1>Producto no encontrado</h1>
         <p>El juego que estás buscando no existe.</p>
 
-        <Button as={Link} to="/productos" variant="primary">
+        <Button as={Link} to="/videojuegos" variant="primary">
           Volver al catálogo
         </Button>
       </Container>
@@ -66,7 +66,7 @@ function DetalleProducto({ agregarAlCarrito, carrito }) {
     <Container className="py-5">
       <Button
         as={Link}
-        to="/productos"
+        to="/videojuegos"
         variant="outline-secondary"
         className="mb-4"
       >

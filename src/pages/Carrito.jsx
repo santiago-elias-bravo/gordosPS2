@@ -3,10 +3,9 @@ import { useState } from "react";
 import { Container, Row, Col, Card, Button, Badge, Form } from "react-bootstrap";
 import CarritoItem from "../components/CarritoItem";
 
-function Carrito({ carrito, cambiarCantidad, eliminarDelCarrito }) {
+function Carrito({ carrito, cambiarCantidad, eliminarDelCarrito, cuponAplicado, setCuponAplicado, }) {
   const navigate = useNavigate();
-  const [codigoCupon, setCodigoCupon] = useState("");
-  const [cuponAplicado, setCuponAplicado] = useState(false);
+  const [codigoCupon, setCodigoCupon] = useState(cuponAplicado ? "GORDOFF10" : "" );
   const [errorCupon, setErrorCupon] = useState("");
 
   function aplicarCupon() {
@@ -46,7 +45,7 @@ function Carrito({ carrito, cambiarCantidad, eliminarDelCarrito }) {
             <p className="text-secondary">
               Todavía no agregaste videojuegos a tu carrito.
             </p>
-            <Button variant="primary" onClick={() => navigate("/productos")}>
+            <Button variant="primary" onClick={() => navigate("/videojuegos")}>
               Ver videojuegos
             </Button>
           </Card.Body>
@@ -55,8 +54,8 @@ function Carrito({ carrito, cambiarCantidad, eliminarDelCarrito }) {
         <Row className="g-4">
           <Col lg={8}>
             <div className="d-flex justify-content-between align-items-center mb-3">
-              <h4 className="mb-0">Productos agregados</h4>
-              <Badge bg="primary">{cantidadTotal} productos</Badge>
+              <h4 className="mb-0">Videojuegos agregados</h4>
+              <Badge bg="primary">{cantidadTotal} videojuegos</Badge>
             </div>
             {carrito.map((producto) => (
               <CarritoItem
@@ -66,7 +65,7 @@ function Carrito({ carrito, cambiarCantidad, eliminarDelCarrito }) {
                 eliminarDelCarrito={eliminarDelCarrito}
               />
             ))}
-            <Button variant="outline-primary" onClick={() => navigate("/productos")}>
+            <Button variant="outline-primary" onClick={() => navigate("/videojuegos")}>
               ← Seguir comprando
             </Button>
           </Col>
@@ -77,7 +76,7 @@ function Carrito({ carrito, cambiarCantidad, eliminarDelCarrito }) {
                   Resumen del carrito
                 </Card.Title>
                 <div className="d-flex justify-content-between mb-3">
-                  <span className="text-secondary">Cantidad de productos</span>
+                  <span className="text-secondary">Cantidad de videojuegos</span>
                   <span>{cantidadTotal}</span>
                 </div>
                 <hr />

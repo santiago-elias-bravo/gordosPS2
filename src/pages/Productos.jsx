@@ -120,7 +120,7 @@ function Productos({ agregarAlCarrito, carrito }) {
             onChange={(e) => setOrden(e.target.value)}
             aria-label="Ordenar por precio"
           >
-            <option value="ninguno">Orden original</option>
+            <option value="ninguno">Más relevantes</option>
             <option value="menor">Precio: menor a mayor</option>
             <option value="mayor">Precio: mayor a menor</option>
           </Form.Select>
@@ -129,7 +129,7 @@ function Productos({ agregarAlCarrito, carrito }) {
         <Col xs={12}>
           <Form.Check
             type="checkbox"
-            label="Mostrar solo productos con stock"
+            label="Mostrar solo videojuegos con stock"
             checked={soloStock}
             onChange={(e) => setSoloStock(e.target.checked)}
           />
@@ -137,7 +137,7 @@ function Productos({ agregarAlCarrito, carrito }) {
       </Row>
 
       <p className="text-secondary">
-        Se encontraron {productosFiltrados.length} productos.
+        Se encontraron {productosFiltrados.length} videojuegos.
       </p>
 
       <Row className="g-4">
@@ -179,7 +179,7 @@ function Productos({ agregarAlCarrito, carrito }) {
                 <div className="mt-auto d-grid gap-2">
                   <Button
                     as={Link}
-                    to={`/productos/${producto.id}`}
+                    to={`/videojuegos/${producto.id}`}
                     variant="outline-primary"
                   >
                     Ver detalle

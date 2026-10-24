@@ -25,7 +25,7 @@ function NavbarTienda({ cantidadCarrito }) {
             <Nav.Link as={Link} to="/">
               Inicio
             </Nav.Link>
-            <Nav.Link as={Link} to="/productos">
+            <Nav.Link as={Link} to="/videojuegos">
               Videojuegos
             </Nav.Link>
             <Nav.Link as={Link} to="/contacto">

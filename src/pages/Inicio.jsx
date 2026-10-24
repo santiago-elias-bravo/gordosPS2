@@ -17,7 +17,7 @@ function Home() {
                 Los clásicos nunca pasan de moda.
               </h1>
               <p className="inicio-descripcion">
-                ¿Te acordás de esos juegos que te tenían horas frente a la tele?
+                ¿Te acordás de esos juegos que te tenían horas frente a la tele? 
                 En Gordos PS2 queremos traer de vuelta esos momentos con
                 videojuegos originales de PlayStation 2.
               </p>
@@ -63,9 +63,10 @@ function Home() {
               <Card className="inicio-tarjeta h-100">
                 <Card.Body>
                   <div className="inicio-icono">💿</div>
-                  <Card.Title>Nuevos</Card.Title>
+                  <Card.Title>Juegos Nuevos</Card.Title>
                   <Card.Text>
-                    Encontrá títulos para volver a jugar o sumar a tu colección.
+                    Disfrutá tus clásicos favoritos en su estado original:
+                    juegos nuevos, sin uso y sellados de fábrica.
                   </Card.Text>
                 </Card.Body>
               </Card>
@@ -86,10 +87,10 @@ function Home() {
               <Card className="inicio-tarjeta h-100">
                 <Card.Body>
                   <div className="inicio-icono">🛒</div>
-                  <Card.Title>Compra simulada</Card.Title>
+                  <Card.Title>Compra Segura</Card.Title>
                   <Card.Text>
-                    Elegí tus juegos, agregalos al carrito y completá tu compra
-                    desde la web.
+                    Comprá tus videojuegos favoritos con tranquilidad.
+                    Tus datos se utilizan únicamente para gestionar tu pedido, brindándote una experiencia de compra simple y confiable.
                   </Card.Text>
                 </Card.Body>
               </Card>
