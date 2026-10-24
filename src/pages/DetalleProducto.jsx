@@ -1,4 +1,4 @@
-
+import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 
 import Container from "react-bootstrap/Container";
@@ -8,15 +8,46 @@ import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import Badge from "react-bootstrap/Badge";
 import ListGroup from "react-bootstrap/ListGroup";
+import Alert from "react-bootstrap/Alert";
 
 import { productos } from "../data/productos";
 
-function DetalleProducto({ agregarAlCarrito }) {
+function DetalleProducto({ agregarAlCarrito, carrito }) {
   const { id } = useParams();
+
+  const [productoAgregado, setProductoAgregado] = useState(false);
 
   const producto = productos.find(
     (producto) => producto.id === Number(id)
   );
+
+  const productoEnCarrito = carrito.find(
+    (item) => item.id === producto?.id
+  );
+
+  const cantidadEnCarrito = productoEnCarrito ? productoEnCarrito.cantidad : 0;
+
+  const disponible = producto ? producto.stock > 0 : false;
+
+  const stockMaximoAlcanzado = producto ? cantidadEnCarrito >= producto.stock : false;
+
+  function agregarProducto() {
+    if (!producto || stockMaximoAlcanzado) {
+      return;
+    }
+    agregarAlCarrito(producto);
+    setProductoAgregado(true);
+  }
+
+  useEffect(() => {
+    if (!productoAgregado) return;
+
+    const temporizador = setTimeout(() => {
+      setProductoAgregado(false);
+    }, 1200);
+
+    return () => clearTimeout(temporizador);
+  }, [productoAgregado]);
 
   if (!producto) {
     return (
@@ -30,8 +61,6 @@ function DetalleProducto({ agregarAlCarrito }) {
       </Container>
     );
   }
-
-  const disponible = producto.stock > 0;
 
   return (
     <Container className="py-5">
@@ -89,6 +118,11 @@ function DetalleProducto({ agregarAlCarrito }) {
                     ? `${producto.stock} unidades disponibles`
                     : "Sin stock"}
                 </Badge>
+                {disponible && (
+                  <p className="text-secondary mt-2 mb-0">
+                    Unidades en tu carrito: {cantidadEnCarrito}
+                  </p>
+                )}
               </div>
 
               <h5 className="fw-bold mb-3">
@@ -109,13 +143,23 @@ function DetalleProducto({ agregarAlCarrito }) {
                 variant="primary"
                 size="lg"
                 className="w-100"
-                disabled={!disponible}
-                onClick={() => agregarAlCarrito(producto)}
+                disabled={!disponible || stockMaximoAlcanzado}
+                onClick={agregarProducto}
               >
-                {disponible
-                  ? "Agregar al carrito"
-                  : "Producto no disponible"}
+                {!disponible
+                  ? "Producto no disponible"
+                  : stockMaximoAlcanzado
+                    ? "Stock máximo alcanzado"
+                    : "Agregar al carrito"}
               </Button>
+              {productoAgregado && (
+                <Alert
+                  variant="success"
+                  className="mt-3 mb-0 py-2 text-center"
+                >
+                  ¡Producto agregado al carrito!
+                </Alert>
+              )}
             </Card.Body>
           </Col>
         </Row>

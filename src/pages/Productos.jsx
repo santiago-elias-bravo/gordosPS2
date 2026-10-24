@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useEffect  } from "react";
 import { Link } from "react-router-dom";
 
 import Container from "react-bootstrap/Container";
@@ -10,14 +10,37 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Badge from "react-bootstrap/Badge";
 import InputGroup from "react-bootstrap/InputGroup";
+import Alert from "react-bootstrap/Alert";
 
 import { productos } from "../data/productos";
 
-function Productos({ agregarAlCarrito }) {
+function Productos({ agregarAlCarrito, carrito }) {
   const [busqueda, setBusqueda] = useState("");
   const [categoria, setCategoria] = useState("Todas");
   const [orden, setOrden] = useState("ninguno");
   const [soloStock, setSoloStock] = useState(false);
+  const [productoAgregado, setProductoAgregado] = useState(null);
+
+  function agregarProducto(producto) {
+    const productoEnCarrito = carrito.find(
+      (item) => item.id === producto.id
+    );
+    const cantidadActual = productoEnCarrito ? productoEnCarrito.cantidad : 0;
+    if (cantidadActual >= producto.stock) {
+      return;
+    }
+    agregarAlCarrito(producto);
+    setProductoAgregado(producto.id);
+  }
+  useEffect(() => {
+  if (productoAgregado === null) return;
+
+  const temporizador = setTimeout(() => {
+    setProductoAgregado(null);
+  }, 1200);
+
+  return () => clearTimeout(temporizador);
+}, [productoAgregado]);
 
   const categorias = [
     ...new Set(productos.map((producto) => producto.categoria)),
@@ -137,9 +160,8 @@ function Productos({ agregarAlCarrito }) {
                   bg={producto.stock > 0 ? "success" : "danger"}
                   className="align-self-start mb-2"
                 >
-                  {producto.stock > 0
-                    ? `Stock: ${producto.stock}`
-                    : "Sin stock"}
+                  {producto.stock > 0 ? `Stock: ${producto.stock}` : "Sin stock"}
+                  
                 </Badge>
 
                 <Card.Subtitle className="mb-2 text-secondary">
@@ -163,13 +185,14 @@ function Productos({ agregarAlCarrito }) {
                     Ver detalle
                   </Button>
 
-                  <Button
-                    variant="primary"
-                    disabled={producto.stock === 0}
-                    onClick={() => agregarAlCarrito(producto)}
-                  >
-                    Agregar al carrito
-                  </Button>
+                  <Button variant="primary" disabled={ producto.stock === 0 || (carrito.find((item) => item.id === producto.id)?.cantidad ?? 0) >= producto.stock } onClick={() => agregarProducto(producto)}>
+                  {producto.stock === 0 ? "Sin stock" : (carrito.find((item) => item.id === producto.id)?.cantidad ?? 0) >= producto.stock ? "Stock máximo alcanzado" : "Agregar al carrito"}
+                </Button>
+                  {productoAgregado === producto.id && (
+                    <Alert variant="success" className="mt-2 mb-0 py-2 text-center">
+                      ¡Producto agregado al carrito!
+                    </Alert>
+                  )}
                 </div>
               </Card.Body>
             </Card>

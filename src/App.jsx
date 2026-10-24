@@ -6,12 +6,18 @@ import DetalleProducto from "./pages/DetalleProducto";
 import Contacto from "./pages/Contacto";
 import Carrito from "./pages/Carrito";
 import NotFound from "./pages/NotFound";
+import FinalizarCompra from "./pages/FinalizarCompra";
+import ConfirmacionCompra from "./pages/ConfirmacionCompra";
 
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 
 function App() {
   const [carrito, setCarrito] = useState([]);
+  const cantidadTotal = carrito.reduce(
+    (total, producto) => total + producto.cantidad,
+    0
+  );
 
   function agregarAlCarrito(producto) {
     setCarrito((carritoActual) => {
@@ -26,11 +32,7 @@ function App() {
       }
 
       if (productoEnCarrito) {
-        return carritoActual.map((item) =>
-          item.id === producto.id
-            ? { ...item, cantidad: item.cantidad + 1 }
-            : item,
-        );
+        return carritoActual.map((item) => item.id === producto.id ? { ...item, cantidad: item.cantidad + 1 } : item,);
       }
 
       return [...carritoActual, { ...producto, cantidad: 1 }];
@@ -62,16 +64,16 @@ function App() {
   }
   return (
     <>
-      <Header />
+      <Header cantidadCarrito={cantidadTotal}/>
       <Routes>
         <Route path="/" element={<Inicio />} />
         <Route
           path="/productos"
-          element={<Productos agregarAlCarrito={agregarAlCarrito} />}
+          element={<Productos agregarAlCarrito={agregarAlCarrito} carrito={carrito}/>}
         />
         <Route
           path="/productos/:id"
-          element={<DetalleProducto agregarAlCarrito={agregarAlCarrito} />}
+          element={<DetalleProducto agregarAlCarrito={agregarAlCarrito} carrito={carrito}/>}
         />
         <Route path="/contacto" element={<Contacto />} />
         <Route
@@ -83,6 +85,14 @@ function App() {
               eliminarDelCarrito={eliminarDelCarrito}
             />
           }
+        />
+        <Route
+          path="/finalizar-compra"
+          element={<FinalizarCompra carrito={carrito} />}
+        />
+        <Route
+          path="/confirmacion-compra"
+          element={<ConfirmacionCompra />}
         />
         <Route path="*" element={<NotFound />} />
       </Routes>
