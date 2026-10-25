@@ -49,7 +49,7 @@ function Footer() {
               Videojuegos originales
             </p>
             <p className="text-secondary mb-0">
-              Clásicos nuevos y usados
+              Clásicos de toda la vida
             </p>
           </Col>
         </Row>

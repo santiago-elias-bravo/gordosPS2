@@ -27,7 +27,7 @@ function Home() {
               </p>
               <Button
                 as={Link}
-                to="/productos"
+                to="/videojuegos"
                 variant="primary"
                 size="lg"
                 className="inicio-boton"
@@ -106,7 +106,7 @@ function Home() {
           </p>
           <Button
             as={Link}
-            to="/productos"
+            to="/videojuegos"
             variant="primary"
             size="lg"
             className="inicio-boton"
