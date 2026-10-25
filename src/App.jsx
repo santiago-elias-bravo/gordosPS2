@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import Inicio from "./pages/Inicio";
 import Productos from "./pages/Productos";
 import DetalleProducto from "./pages/DetalleProducto";
@@ -9,6 +9,7 @@ import NotFound from "./pages/NotFound";
 import FinalizarCompra from "./pages/FinalizarCompra";
 import ConfirmacionCompra from "./pages/ConfirmacionCompra";
 import { productos } from "./data/productos";
+import ScrollToTop from "./components/ScrollToTop";
 
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -61,6 +62,16 @@ function App() {
     } catch (error) {
       console.error("Error al recuperar el cupón:", error);
       return false;
+    }
+  });
+
+  const [compraConfirmada, setCompraConfirmada] = useState(() => {
+    try {
+      const compraGuardada = sessionStorage.getItem("compraConfirmada");
+      return compraGuardada ? JSON.parse(compraGuardada) : null;
+    } catch (error) {
+      console.error("Error al recuperar la compra:", error);
+      return null;
     }
   });
 
@@ -134,11 +145,53 @@ function App() {
       setCuponAplicado(false);
     }
   }
+
+  function confirmarCompra(datosCliente) {
+    if (carrito.length === 0) {
+      return false;
+    }
+
+    const subtotal = carrito.reduce(
+      (total, producto) => total + producto.precio * producto.cantidad,
+      0
+    );
+
+    const descuento = cuponAplicado ? subtotal * 0.10 : 0;
+    const totalFinal = subtotal - descuento;
+
+    const compra = {
+      productos: carrito.map((producto) => ({ ...producto })),
+      cliente: { ...datosCliente },
+      cantidadProductos: carrito.reduce(
+        (total, producto) => total + producto.cantidad,
+        0
+      ),
+      subtotal: subtotal,
+      descuento: descuento,
+      total: totalFinal,
+      cupon: cuponAplicado ? "GORDOFF10" : null,
+      fecha: new Date().toLocaleString("es-AR"),
+    };
+
+    try {
+      sessionStorage.setItem("compraConfirmada",JSON.stringify(compra));
+    } catch (error) {
+      console.error("Error al guardar la confirmación:", error);
+    }
+
+    setCompraConfirmada(compra);
+    setCarrito([]);
+    setCuponAplicado(false);
+    return true;
+  }
+
   return (
     <>
+    <ScrollToTop />
       <Header cantidadCarrito={cantidadTotal}/>
       <Routes>
-        <Route path="/" element={<Inicio />} />
+        <Route path="/" element={<Navigate to="/inicio" replace />} />
+        <Route path="/inicio" element={<Inicio />} />
         <Route
           path="/videojuegos"
           element={<Productos agregarAlCarrito={agregarAlCarrito} carrito={carrito}/>}
@@ -162,11 +215,11 @@ function App() {
         />
         <Route
           path="/finalizar-compra"
-          element={<FinalizarCompra carrito={carrito} />}
+          element={<FinalizarCompra carrito={carrito} cuponAplicado={cuponAplicado} confirmarCompra={confirmarCompra} />}
         />
         <Route
           path="/confirmacion-compra"
-          element={<ConfirmacionCompra />}
+          element={<ConfirmacionCompra compra={compraConfirmada} />}
         />
         <Route path="*" element={<NotFound />} />
       </Routes>

@@ -24,7 +24,7 @@ function Footer() {
             <ul className="list-unstyled">
               <li>
                 <Link className="link-light text-decoration-none"
-                  to="/">
+                  to="/inicio">
                   Inicio
                 </Link>
               </li>

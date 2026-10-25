@@ -147,7 +147,7 @@ function DetalleProducto({ agregarAlCarrito, carrito }) {
                 onClick={agregarProducto}
               >
                 {!disponible
-                  ? "Producto no disponible"
+                  ? "Videojuego no disponible"
                   : stockMaximoAlcanzado
                     ? "Stock máximo alcanzado"
                     : "Agregar al carrito"}

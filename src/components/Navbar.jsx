@@ -14,7 +14,7 @@ function NavbarTienda({ cantidadCarrito }) {
       className="py-3"
     >
       <Container>
-        <Navbar.Brand as={Link} to="/" className="fw-bold">
+        <Navbar.Brand as={Link} to="/inicio" className="fw-bold">
           <span className="text-primary">GORDOS</span> PS2
         </Navbar.Brand>
 
@@ -22,7 +22,7 @@ function NavbarTienda({ cantidadCarrito }) {
 
         <Navbar.Collapse id="menu-principal">
           <Nav className="mx-auto">
-            <Nav.Link as={Link} to="/">
+            <Nav.Link as={Link} to="/inicio">
               Inicio
             </Nav.Link>
             <Nav.Link as={Link} to="/videojuegos">
