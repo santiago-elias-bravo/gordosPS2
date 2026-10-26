@@ -1,4 +1,3 @@
-
 import { useNavigate } from "react-router-dom";
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import FormularioCompra from "../components/FormularioCompra";
@@ -8,16 +7,15 @@ function FinalizarCompra({ carrito, cuponAplicado, confirmarCompra }) {
 
   const cantidadTotal = carrito.reduce(
     (total, producto) => total + producto.cantidad,
-    0
+    0,
   );
 
   const subtotal = carrito.reduce(
-    (total, producto) =>
-      total + producto.precio * producto.cantidad,
-    0
+    (total, producto) => total + producto.precio * producto.cantidad,
+    0,
   );
 
-  const descuento = cuponAplicado ? subtotal * 0.10 : 0;
+  const descuento = cuponAplicado ? subtotal * 0.1 : 0;
   const totalFinal = subtotal - descuento;
 
   if (carrito.length === 0) {
@@ -50,9 +48,7 @@ function FinalizarCompra({ carrito, cuponAplicado, confirmarCompra }) {
               <Card.Title className="fw-bold mb-4">
                 Datos del comprador
               </Card.Title>
-              <FormularioCompra
-                confirmarCompra={confirmarCompra}
-              />
+              <FormularioCompra confirmarCompra={confirmarCompra} />
             </Card.Body>
           </Card>
           <Button
@@ -70,21 +66,24 @@ function FinalizarCompra({ carrito, cuponAplicado, confirmarCompra }) {
                 Resumen del pedido
               </Card.Title>
               {carrito.map((producto) => (
-                <div key={producto.id} className="d-flex justify-content-between mb-3 gap-2">
+                <div
+                  key={producto.id}
+                  className="d-flex justify-content-between mb-3 gap-2"
+                >
                   <span>
                     {producto.nombre} × {producto.cantidad}
                   </span>
                   <span className="text-nowrap">
-                    ${(producto.precio * producto.cantidad)
-                      .toLocaleString("es-AR")}
+                    $
+                    {(producto.precio * producto.cantidad).toLocaleString(
+                      "es-AR",
+                    )}
                   </span>
                 </div>
               ))}
               <hr />
               <div className="d-flex justify-content-between mb-2">
-                <span className="text-secondary">
-                  Cantidad de productos
-                </span>
+                <span className="text-secondary">Cantidad de productos</span>
                 <span>{cantidadTotal}</span>
               </div>
               <div className="d-flex justify-content-between mb-2">
@@ -94,9 +93,7 @@ function FinalizarCompra({ carrito, cuponAplicado, confirmarCompra }) {
               {cuponAplicado && (
                 <div className="d-flex justify-content-between mb-3 text-success">
                   <span>Descuento GORDOFF10 (10%)</span>
-                  <span>
-                    -${descuento.toLocaleString("es-AR")}
-                  </span>
+                  <span>-${descuento.toLocaleString("es-AR")}</span>
                 </div>
               )}
               <hr />

@@ -10,12 +10,19 @@ import Badge from "react-bootstrap/Badge";
 import ListGroup from "react-bootstrap/ListGroup";
 import Alert from "react-bootstrap/Alert";
 
+import Modal from "react-bootstrap/Modal";
+import Form from "react-bootstrap/Form";
+
 import { productos } from "../data/productos";
 
 function DetalleProducto({ agregarAlCarrito, carrito }) {
   const { id } = useParams();
 
   const [productoAgregado, setProductoAgregado] = useState(false);
+  const [mostrarModal, setMostrarModal] = useState(false);
+  const [emailNotificacion, setEmailNotificacion] = useState("");
+  const [errorEmail, setErrorEmail] = useState("");
+  const [notificacionEnviada, setNotificacionEnviada] = useState(false);
 
   const producto = productos.find(
     (producto) => producto.id === Number(id)
@@ -37,6 +44,20 @@ function DetalleProducto({ agregarAlCarrito, carrito }) {
     }
     agregarAlCarrito(producto);
     setProductoAgregado(true);
+  }
+
+  function solicitarNotificacion(e) {
+    e.preventDefault();
+
+    const email = emailNotificacion.trim();
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      setErrorEmail("Ingresá un correo electrónico válido.");
+      return;
+    }
+
+    setErrorEmail("");
+    setNotificacionEnviada(true);
   }
 
   useEffect(() => {
@@ -152,6 +173,20 @@ function DetalleProducto({ agregarAlCarrito, carrito }) {
                     ? "Stock máximo alcanzado"
                     : "Agregar al carrito"}
               </Button>
+              {!disponible && (
+                <Button
+                  variant="outline-primary"
+                  size="lg"
+                  className="w-100 mt-2"
+                  onClick={() => {
+                    setMostrarModal(true);
+                    setNotificacionEnviada(false);
+                    setErrorEmail("");
+                  }}
+                >
+                  Notificarme cuando esté disponible
+                </Button>
+              )}
               {productoAgregado && (
                 <Alert
                   variant="success"
@@ -164,6 +199,74 @@ function DetalleProducto({ agregarAlCarrito, carrito }) {
           </Col>
         </Row>
       </Card>
+      <Modal
+        show={mostrarModal}
+        onHide={() => setMostrarModal(false)}
+        centered
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>
+            Notificarme cuando esté disponible
+          </Modal.Title>
+        </Modal.Header>
+
+        <Modal.Body>
+          {notificacionEnviada ? (
+            <Alert variant="success" className="mb-0">
+              ¡Listo! Registramos tu solicitud para{" "}
+              <strong>{producto.nombre}</strong>.
+            </Alert>
+          ) : (
+            <>
+              <p>
+                Ingresá tu correo electrónico para solicitar un aviso
+                cuando vuelva a haber stock de este videojuego.
+              </p>
+
+              <Form onSubmit={solicitarNotificacion}>
+                <Form.Group className="mb-3">
+                  <Form.Label>Correo electrónico</Form.Label>
+
+                  <Form.Control
+                    type="email"
+                    placeholder="ejemplo@correo.com"
+                    value={emailNotificacion}
+                    onChange={(e) => {
+                      setEmailNotificacion(e.target.value);
+                      setErrorEmail("");
+                    }}
+                    isInvalid={!!errorEmail}
+                    required
+                  />
+
+                  <Form.Control.Feedback type="invalid">
+                    {errorEmail}
+                  </Form.Control.Feedback>
+                </Form.Group>
+
+                <Button
+                  type="submit"
+                  variant="primary"
+                  className="w-100"
+                >
+                  Solicitar aviso
+                </Button>
+              </Form>
+            </>
+          )}
+        </Modal.Body>
+
+        {notificacionEnviada && (
+          <Modal.Footer>
+            <Button
+              variant="primary"
+              onClick={() => setMostrarModal(false)}
+            >
+              Cerrar
+            </Button>
+          </Modal.Footer>
+        )}
+      </Modal>
     </Container>
   );
 }
