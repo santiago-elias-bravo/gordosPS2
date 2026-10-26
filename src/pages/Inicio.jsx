@@ -17,7 +17,7 @@ function Home() {
                 Los clásicos nunca pasan de moda.
               </h1>
               <p className="inicio-descripcion">
-                ¿Te acordás de esos juegos que te tenían horas frente a la tele? 
+                ¿Te acordás de esos juegos que te tenían horas frente a la tele?
                 En Gordos PS2 queremos traer de vuelta esos momentos con
                 videojuegos originales de PlayStation 2.
               </p>
@@ -89,8 +89,9 @@ function Home() {
                   <div className="inicio-icono">🛒</div>
                   <Card.Title>Compra Segura</Card.Title>
                   <Card.Text>
-                    Comprá tus videojuegos favoritos con tranquilidad.
-                    Tus datos se utilizan únicamente para gestionar tu pedido, brindándote una experiencia de compra simple y confiable.
+                    Comprá tus videojuegos favoritos con tranquilidad. Tus datos
+                    se utilizan únicamente para gestionar tu pedido, brindándote
+                    una experiencia de compra simple y confiable.
                   </Card.Text>
                 </Card.Body>
               </Card>

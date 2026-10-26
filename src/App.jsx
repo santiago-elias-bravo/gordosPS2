@@ -8,6 +8,7 @@ import Carrito from "./pages/Carrito";
 import NotFound from "./pages/NotFound";
 import FinalizarCompra from "./pages/FinalizarCompra";
 import ConfirmacionCompra from "./pages/ConfirmacionCompra";
+import SobreNosotros from "./pages/SobreNosotros";
 import { productos } from "./data/productos";
 import ScrollToTop from "./components/ScrollToTop";
 
@@ -17,46 +18,47 @@ import Footer from "./components/Footer";
 function App() {
   const [carrito, setCarrito] = useState(() => {
     try {
-    const carritoGuardado = localStorage.getItem("carrito");
-    if (!carritoGuardado) {
+      const carritoGuardado = localStorage.getItem("carrito");
+      if (!carritoGuardado) {
+        return [];
+      }
+      const productosGuardados = JSON.parse(carritoGuardado);
+      if (!Array.isArray(productosGuardados)) {
+        return [];
+      }
+      const carritoValidado = productosGuardados
+        .map((item) => {
+          const productoActual = productos.find(
+            (producto) => producto.id === item.id,
+          );
+
+          if (!productoActual || productoActual.stock <= 0) {
+            return null;
+          }
+
+          if (!Number.isInteger(item.cantidad) || item.cantidad <= 0) {
+            return null;
+          }
+
+          const cantidadValidada = Math.min(
+            item.cantidad,
+            productoActual.stock,
+          );
+
+          return { ...productoActual, cantidad: cantidadValidada };
+        })
+        .filter((item) => item !== null);
+
+      return carritoValidado;
+    } catch (error) {
+      console.error("Error al recuperar el carrito:", error);
       return [];
     }
-    const productosGuardados = JSON.parse(carritoGuardado);
-    if (!Array.isArray(productosGuardados)) {
-      return [];
-    }
-    const carritoValidado = productosGuardados
-      .map((item) => {
-        const productoActual = productos.find(
-          (producto) => producto.id === item.id
-        );
-
-        if (!productoActual || productoActual.stock <= 0) {
-          return null;
-        }
-
-        if (!Number.isInteger(item.cantidad) || item.cantidad <= 0) {
-          return null;
-        }
-
-        const cantidadValidada = Math.min(item.cantidad,productoActual.stock);
-
-        return {...productoActual,cantidad: cantidadValidada};
-      })
-      .filter((item) => item !== null);
-
-    return carritoValidado;
-
-  } catch (error) {
-    console.error("Error al recuperar el carrito:", error);
-    return [];
-  }
   });
 
   const [cuponAplicado, setCuponAplicado] = useState(() => {
     try {
-      const cuponGuardado =
-        localStorage.getItem("cuponAplicado") === "true";
+      const cuponGuardado = localStorage.getItem("cuponAplicado") === "true";
 
       return carrito.length > 0 && cuponGuardado;
     } catch (error) {
@@ -90,10 +92,10 @@ function App() {
       console.error("Error al guardar el cupón:", error);
     }
   }, [cuponAplicado]);
-  
+
   const cantidadTotal = carrito.reduce(
     (total, producto) => total + producto.cantidad,
-    0
+    0,
   );
 
   function agregarAlCarrito(producto) {
@@ -109,7 +111,11 @@ function App() {
       }
 
       if (productoEnCarrito) {
-        return carritoActual.map((item) => item.id === producto.id ? { ...item, cantidad: item.cantidad + 1 } : item,);
+        return carritoActual.map((item) =>
+          item.id === producto.id
+            ? { ...item, cantidad: item.cantidad + 1 }
+            : item,
+        );
       }
 
       return [...carritoActual, { ...producto, cantidad: 1 }];
@@ -135,9 +141,7 @@ function App() {
     );
   }
   function eliminarDelCarrito(id) {
-    const carritoActualizado = carrito.filter(
-      (item) => item.id !== id
-    );
+    const carritoActualizado = carrito.filter((item) => item.id !== id);
 
     setCarrito(carritoActualizado);
 
@@ -153,10 +157,10 @@ function App() {
 
     const subtotal = carrito.reduce(
       (total, producto) => total + producto.precio * producto.cantidad,
-      0
+      0,
     );
 
-    const descuento = cuponAplicado ? subtotal * 0.10 : 0;
+    const descuento = cuponAplicado ? subtotal * 0.1 : 0;
     const totalFinal = subtotal - descuento;
 
     const compra = {
@@ -164,7 +168,7 @@ function App() {
       cliente: { ...datosCliente },
       cantidadProductos: carrito.reduce(
         (total, producto) => total + producto.cantidad,
-        0
+        0,
       ),
       subtotal: subtotal,
       descuento: descuento,
@@ -174,7 +178,7 @@ function App() {
     };
 
     try {
-      sessionStorage.setItem("compraConfirmada",JSON.stringify(compra));
+      sessionStorage.setItem("compraConfirmada", JSON.stringify(compra));
     } catch (error) {
       console.error("Error al guardar la confirmación:", error);
     }
@@ -186,46 +190,66 @@ function App() {
   }
 
   return (
-    <>
-    <ScrollToTop />
-      <Header cantidadCarrito={cantidadTotal}/>
-      <Routes>
-        <Route path="/" element={<Navigate to="/inicio" replace />} />
-        <Route path="/inicio" element={<Inicio />} />
-        <Route
-          path="/videojuegos"
-          element={<Productos agregarAlCarrito={agregarAlCarrito} carrito={carrito}/>}
-        />
-        <Route
-          path="/videojuegos/:id"
-          element={<DetalleProducto agregarAlCarrito={agregarAlCarrito} carrito={carrito}/>}
-        />
-        <Route path="/contacto" element={<Contacto />} />
-        <Route
-          path="/carrito"
-          element={
-            <Carrito
-              carrito={carrito}
-              cambiarCantidad={cambiarCantidad}
-              eliminarDelCarrito={eliminarDelCarrito}
-              cuponAplicado={cuponAplicado}
-              setCuponAplicado={setCuponAplicado}
-            />
-          }
-        />
-        <Route
-          path="/finalizar-compra"
-          element={<FinalizarCompra carrito={carrito} cuponAplicado={cuponAplicado} confirmarCompra={confirmarCompra} />}
-        />
-        <Route
-          path="/confirmacion-compra"
-          element={<ConfirmacionCompra compra={compraConfirmada} />}
-        />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
+    <div className="app-container">
+      <ScrollToTop />
+      <Header cantidadCarrito={cantidadTotal} />
+
+      <main className="main-content">
+        <Routes>
+          <Route path="/" element={<Navigate to="/inicio" replace />} />
+          <Route path="/inicio" element={<Inicio />} />
+          <Route
+            path="/videojuegos"
+            element={
+              <Productos
+                agregarAlCarrito={agregarAlCarrito}
+                carrito={carrito}
+              />
+            }
+          />
+          <Route path="/sobre-nosotros" element={<SobreNosotros />} />
+          <Route
+            path="/videojuegos/:id"
+            element={
+              <DetalleProducto
+                agregarAlCarrito={agregarAlCarrito}
+                carrito={carrito}
+              />
+            }
+          />
+          <Route path="/contacto" element={<Contacto />} />
+          <Route
+            path="/carrito"
+            element={
+              <Carrito
+                carrito={carrito}
+                cambiarCantidad={cambiarCantidad}
+                eliminarDelCarrito={eliminarDelCarrito}
+                cuponAplicado={cuponAplicado}
+                setCuponAplicado={setCuponAplicado}
+              />
+            }
+          />
+          <Route
+            path="/finalizar-compra"
+            element={
+              <FinalizarCompra
+                carrito={carrito}
+                cuponAplicado={cuponAplicado}
+                confirmarCompra={confirmarCompra}
+              />
+            }
+          />
+          <Route
+            path="/confirmacion-compra"
+            element={<ConfirmacionCompra compra={compraConfirmada} />}
+          />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </main>
 
       <Footer />
-    </>
+    </div>
   );
 }
 

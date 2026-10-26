@@ -14,8 +14,23 @@ function NavbarTienda({ cantidadCarrito }) {
       className="py-3"
     >
       <Container>
-        <Navbar.Brand as={Link} to="/inicio" className="fw-bold">
-          <span className="text-primary">GORDOS</span> PS2
+        <Navbar.Brand
+          as={Link}
+          to="/inicio"
+          className="fw-bold d-flex align-items-center gap-2"
+        >
+          <img
+            src="/logoTienda.png"
+            alt="Logo de Gordos PS2"
+            style={{
+              width: "45px",
+              height: "45px",
+              objectFit: "contain",
+            }}
+          />
+          <span>
+            <span className="text-primary">GORDOS</span> PS2
+          </span>
         </Navbar.Brand>
 
         <Navbar.Toggle aria-controls="menu-principal" />
@@ -24,6 +39,9 @@ function NavbarTienda({ cantidadCarrito }) {
           <Nav className="mx-auto">
             <Nav.Link as={Link} to="/inicio">
               Inicio
+            </Nav.Link>
+            <Nav.Link as={Link} to="/sobre-nosotros">
+              Sobre Nosotros
             </Nav.Link>
             <Nav.Link as={Link} to="/videojuegos">
               Videojuegos
