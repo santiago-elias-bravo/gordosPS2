@@ -6,7 +6,7 @@ import Col from "react-bootstrap/Col";
 
 function Footer() {
   return (
-    <footer className="bg-dark text-light mt-auto py-4">
+    <footer className="bg-dark text-light py-4">
       <Container>
         <Row className="g-4">
           <Col md={4}>
@@ -19,38 +19,36 @@ function Footer() {
             </p>
           </Col>
 
-          <Col md={4}>
-            <h6 className="fw-bold">Navegación</h6>
-            <ul className="list-unstyled">
-              <li>
-                <Link className="link-light text-decoration-none"
-                  to="/inicio">
-                  Inicio
-                </Link>
-              </li>
-              <li>
-                <Link className="link-light text-decoration-none"
-                  to="/videojuegos">
-                  Catálogo
-                </Link>
-              </li>
-              <li>
-                <Link className="link-light text-decoration-none"
-                  to="/contacto">
-                  Contacto
-                </Link>
-              </li>
-            </ul>
-          </Col>
 
           <Col md={4}>
-            <h6 className="fw-bold">Nuestra tienda</h6>
-            <p className="text-secondary mb-1">
-              Videojuegos originales
+            <h6 className="fw-bold">Navegación</h6>
+            <div className="d-flex flex-column gap-1">
+              <Link className="link-light text-decoration-none" to="/inicio">
+                Inicio
+              </Link>
+              <Link className="link-light text-decoration-none" to="/sobre-nosotros">
+                Sobre Nosotros
+              </Link>
+              <Link className="link-light text-decoration-none" to="/videojuegos">
+                Videojuegos
+              </Link>
+            </div>
+          </Col>
+
+
+          <Col md={4}>
+            <h6 className="fw-bold">Contacto</h6>
+
+            <p className="text-secondary mb-2">
+              ¿Tenés alguna consulta sobre nuestros videojuegos?
             </p>
-            <p className="text-secondary mb-0">
-              Clásicos de toda la vida
-            </p>
+
+            <Link
+              className="link-light text-decoration-none"
+              to="/contacto"
+            >
+              Contactanos
+            </Link>
           </Col>
         </Row>
 

@@ -91,3 +91,34 @@
 .inicio-final p {
   color: #cbd5e1;
 }
+
+
+/* Estructura general de la página */
+html,
+body,
+#root {
+  min-height: 100%;
+  margin: 0;
+}
+
+.app-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-content {
+  flex: 1;
+}
+
+/* Página Sobre Nosotros */
+.sobre-nosotros-page {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Sección final de Sobre Nosotros */
+.sobre-nosotros-final {
+  margin-top: auto;
+}
