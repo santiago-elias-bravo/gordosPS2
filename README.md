@@ -76,3 +76,30 @@ http://localhost:5173
 
 ![Catálogo de videojuegos](./captura-catalogo.png)
 
+### Detalle de videojuego
+
+![Detalle de videojuego](./captura-detalleVideojuego.png)
+
+### Contactanos
+
+![Contactanos](./captura-contactanos.png)
+
+### Sobre Nostros
+
+![Sobre Nostros](./captura-sobreNosotros.png)
+
+### Carrito de compras vacío
+
+![Carrito de compras vacío](./captura-carritoVacio.png)
+
+### Carritos de compras con videojuegos
+
+![Carritos de compras con videojuegos](./captura-carritoConVideojuegos.png)
+
+### Formulario de compra
+
+![Formulario de compra](./captura-formularioCompra.png)
+
+### Confirmación de compra
+
+![Confirmación de compra](./captura-confirmacionCompra.png)
