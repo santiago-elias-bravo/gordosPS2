@@ -20,8 +20,12 @@ function DetalleProducto({ agregarAlCarrito, carrito }) {
 
   const [productoAgregado, setProductoAgregado] = useState(false);
   const [mostrarModal, setMostrarModal] = useState(false);
-  const [emailNotificacion, setEmailNotificacion] = useState("");
-  const [errorEmail, setErrorEmail] = useState("");
+
+  const [formData, setFormData] = useState({
+    email: "",
+  });
+
+  const [errors, setErrors] = useState({});
   const [notificacionEnviada, setNotificacionEnviada] = useState(false);
 
   const producto = productos.find((producto) => producto.id === Number(id));
@@ -47,9 +51,11 @@ function DetalleProducto({ agregarAlCarrito, carrito }) {
   function validateForm() {
     const newErrors = {};
 
-    if (emailNotificacion.trim() === "") {
+    if (formData.email.trim() === "") {
       newErrors.email = "Ingresá tu correo electrónico.";
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailNotificacion.trim())) {
+    } else if (
+      !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email.trim())
+    ) {
       newErrors.email = "Ingresá un correo electrónico válido.";
     }
 
@@ -60,13 +66,17 @@ function DetalleProducto({ agregarAlCarrito, carrito }) {
     e.preventDefault();
 
     const newErrors = validateForm();
-    setErrorEmail(newErrors.email || "");
+    setErrors(newErrors);
 
     if (Object.keys(newErrors).length > 0) {
       return;
     }
 
     setNotificacionEnviada(true);
+
+    setFormData({
+      email: "",
+    });
   }
 
   useEffect(() => {
@@ -221,17 +231,26 @@ function DetalleProducto({ agregarAlCarrito, carrito }) {
                     name="email"
                     type="email"
                     placeholder="ejemplo@correo.com"
-                    value={emailNotificacion}
+                    value={formData.email}
                     onChange={(e) => {
-                      setEmailNotificacion(e.target.value);
-                      setErrorEmail("");
+                      setFormData({
+                        ...formData,
+                        email: e.target.value,
+                      });
+
+                      setErrors({
+                        ...errors,
+                        email: "",
+                      });
+
+                      setNotificacionEnviada(false);
                     }}
-                    isInvalid={!!errorEmail}
+                    isInvalid={!!errors.email}
                   />
 
-                  {errorEmail && (
+                  {errors.email && (
                     <Form.Control.Feedback type="invalid">
-                      {errorEmail}
+                      {errors.email}
                     </Form.Control.Feedback>
                   )}
                 </Form.Group>
