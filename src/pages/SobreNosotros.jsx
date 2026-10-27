@@ -9,16 +9,16 @@ function SobreNosotros() {
           <Col lg={7}>
             <p className="text-primary fw-bold mb-2">SOBRE NOSOTROS</p>
 
-            <h1 className="fw-bold mb-4">Los clásicos nunca pasan de moda</h1>
+            <h1 className="fw-bold mb-4 titulo-sobre-nosotros">Los clásicos nunca pasan de moda...</h1>
 
-            <p className="text-secondary">
+            <p className="text-secondary texto-justificado">
               En Gordos PS2 nos gustan los videojuegos que marcaron una época.
               Creamos esta tienda para que puedas encontrar esos clásicos de
               PlayStation 2 que recordás con cariño o descubrir juegos que
               todavía no tuviste la oportunidad de probar.
             </p>
 
-            <p className="text-secondary">
+            <p className="text-secondary texto-justificado">
               Nuestro catálogo reúne juegos de distintos géneros, desde
               aventuras y acción hasta deportes y carreras. Queremos que
               encontrar tu próximo videojuego sea sencillo y que vuelvas a

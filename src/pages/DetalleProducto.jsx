@@ -24,19 +24,17 @@ function DetalleProducto({ agregarAlCarrito, carrito }) {
   const [errorEmail, setErrorEmail] = useState("");
   const [notificacionEnviada, setNotificacionEnviada] = useState(false);
 
-  const producto = productos.find(
-    (producto) => producto.id === Number(id)
-  );
+  const producto = productos.find((producto) => producto.id === Number(id));
 
-  const productoEnCarrito = carrito.find(
-    (item) => item.id === producto?.id
-  );
+  const productoEnCarrito = carrito.find((item) => item.id === producto?.id);
 
   const cantidadEnCarrito = productoEnCarrito ? productoEnCarrito.cantidad : 0;
 
   const disponible = producto ? producto.stock > 0 : false;
 
-  const stockMaximoAlcanzado = producto ? cantidadEnCarrito >= producto.stock : false;
+  const stockMaximoAlcanzado = producto
+    ? cantidadEnCarrito >= producto.stock
+    : false;
 
   function agregarProducto() {
     if (!producto || stockMaximoAlcanzado) {
@@ -46,17 +44,28 @@ function DetalleProducto({ agregarAlCarrito, carrito }) {
     setProductoAgregado(true);
   }
 
+  function validateForm() {
+    const newErrors = {};
+
+    if (emailNotificacion.trim() === "") {
+      newErrors.email = "Ingresá tu correo electrónico.";
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailNotificacion.trim())) {
+      newErrors.email = "Ingresá un correo electrónico válido.";
+    }
+
+    return newErrors;
+  }
+
   function solicitarNotificacion(e) {
     e.preventDefault();
 
-    const email = emailNotificacion.trim();
+    const newErrors = validateForm();
+    setErrorEmail(newErrors.email || "");
 
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      setErrorEmail("Ingresá un correo electrónico válido.");
+    if (Object.keys(newErrors).length > 0) {
       return;
     }
 
-    setErrorEmail("");
     setNotificacionEnviada(true);
   }
 
@@ -112,18 +121,13 @@ function DetalleProducto({ agregarAlCarrito, carrito }) {
 
           <Col md={6}>
             <Card.Body className="p-4 p-lg-5">
-              <Badge
-                bg="secondary"
-                className="mb-3"
-              >
+              <Badge bg="secondary" className="mb-3">
                 {producto.categoria}
               </Badge>
 
-              <h1 className="fw-bold mb-3">
-                {producto.nombre}
-              </h1>
+              <h1 className="fw-bold mb-3">{producto.nombre}</h1>
 
-              <p className="text-secondary">
+              <p className="text-secondary texto-justificado">
                 {producto.descripcionCompleta}
               </p>
 
@@ -146,18 +150,12 @@ function DetalleProducto({ agregarAlCarrito, carrito }) {
                 )}
               </div>
 
-              <h5 className="fw-bold mb-3">
-                Características principales
-              </h5>
+              <h5 className="fw-bold mb-3">Características principales</h5>
 
               <ListGroup className="mb-4">
-                {producto.caracteristicas.map(
-                  (caracteristica, index) => (
-                    <ListGroup.Item key={index}>
-                      {caracteristica}
-                    </ListGroup.Item>
-                  )
-                )}
+                {producto.caracteristicas.map((caracteristica, index) => (
+                  <ListGroup.Item key={index}>{caracteristica}</ListGroup.Item>
+                ))}
               </ListGroup>
 
               <Button
@@ -188,10 +186,7 @@ function DetalleProducto({ agregarAlCarrito, carrito }) {
                 </Button>
               )}
               {productoAgregado && (
-                <Alert
-                  variant="success"
-                  className="mt-3 mb-0 py-2 text-center"
-                >
+                <Alert variant="success" className="mt-3 mb-0 py-2 text-center">
                   ¡Producto agregado al carrito!
                 </Alert>
               )}
@@ -199,15 +194,9 @@ function DetalleProducto({ agregarAlCarrito, carrito }) {
           </Col>
         </Row>
       </Card>
-      <Modal
-        show={mostrarModal}
-        onHide={() => setMostrarModal(false)}
-        centered
-      >
+      <Modal show={mostrarModal} onHide={() => setMostrarModal(false)} centered>
         <Modal.Header closeButton>
-          <Modal.Title>
-            Notificarme cuando esté disponible
-          </Modal.Title>
+          <Modal.Title>Notificarme cuando esté disponible</Modal.Title>
         </Modal.Header>
 
         <Modal.Body>
@@ -219,15 +208,17 @@ function DetalleProducto({ agregarAlCarrito, carrito }) {
           ) : (
             <>
               <p>
-                Ingresá tu correo electrónico para solicitar un aviso
-                cuando vuelva a haber stock de este videojuego.
+                Ingresá tu correo electrónico para solicitar un aviso cuando
+                vuelva a haber stock de este videojuego.
               </p>
 
-              <Form onSubmit={solicitarNotificacion}>
+              <Form onSubmit={solicitarNotificacion} noValidate>
                 <Form.Group className="mb-3">
-                  <Form.Label>Correo electrónico</Form.Label>
+                  <Form.Label>Correo electrónico *</Form.Label>
 
                   <Form.Control
+                    id="email"
+                    name="email"
                     type="email"
                     placeholder="ejemplo@correo.com"
                     value={emailNotificacion}
@@ -236,19 +227,16 @@ function DetalleProducto({ agregarAlCarrito, carrito }) {
                       setErrorEmail("");
                     }}
                     isInvalid={!!errorEmail}
-                    required
                   />
 
-                  <Form.Control.Feedback type="invalid">
-                    {errorEmail}
-                  </Form.Control.Feedback>
+                  {errorEmail && (
+                    <Form.Control.Feedback type="invalid">
+                      {errorEmail}
+                    </Form.Control.Feedback>
+                  )}
                 </Form.Group>
 
-                <Button
-                  type="submit"
-                  variant="primary"
-                  className="w-100"
-                >
+                <Button type="submit" variant="primary" className="w-100">
                   Solicitar aviso
                 </Button>
               </Form>
@@ -258,10 +246,7 @@ function DetalleProducto({ agregarAlCarrito, carrito }) {
 
         {notificacionEnviada && (
           <Modal.Footer>
-            <Button
-              variant="primary"
-              onClick={() => setMostrarModal(false)}
-            >
+            <Button variant="primary" onClick={() => setMostrarModal(false)}>
               Cerrar
             </Button>
           </Modal.Footer>

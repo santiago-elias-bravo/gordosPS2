@@ -83,7 +83,7 @@ function FormularioCompra({ confirmarCompra }) {
     if (formData.metodoEntrega === "") {
       newErrors.metodoEntrega = "Seleccioná un método de entrega.";
     }
-    // Validaciones exclusivas de envío a domicilio
+    
     if (formData.metodoEntrega === "Envío a domicilio") {
       if (formData.direccion.trim() === "") {
         newErrors.direccion = "Ingresá el nombre de la calle.";

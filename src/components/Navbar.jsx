@@ -40,14 +40,14 @@ function NavbarTienda({ cantidadCarrito }) {
             <Nav.Link as={Link} to="/inicio">
               Inicio
             </Nav.Link>
-            <Nav.Link as={Link} to="/sobre-nosotros">
-              Sobre Nosotros
-            </Nav.Link>
             <Nav.Link as={Link} to="/videojuegos">
               Videojuegos
             </Nav.Link>
             <Nav.Link as={Link} to="/contacto">
-              Contacto
+              Contactanos
+            </Nav.Link>
+            <Nav.Link as={Link} to="/sobre-nosotros">
+              Sobre Nosotros
             </Nav.Link>
           </Nav>
           <Nav>

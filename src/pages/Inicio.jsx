@@ -16,12 +16,12 @@ function Home() {
               <h1 className="inicio-titulo">
                 Los clásicos nunca pasan de moda.
               </h1>
-              <p className="inicio-descripcion">
+              <p className="inicio-descripcion texto-justificado">
                 ¿Te acordás de esos juegos que te tenían horas frente a la tele?
                 En Gordos PS2 queremos traer de vuelta esos momentos con
                 videojuegos originales de PlayStation 2.
               </p>
-              <p className="inicio-descripcion">
+              <p className="inicio-descripcion texto-justificado">
                 Buscá tus favoritos, descubrí algún clásico que te quedó
                 pendiente y armá tu colección.
               </p>
