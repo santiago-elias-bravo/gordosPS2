@@ -1,16 +1,78 @@
-# React + Vite
+# Gordos PS2
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Descripción del proyecto
 
-Currently, two official plugins are available:
+Gordos PS2 es una tienda online desarrollada como trabajo práctico. El sitio permite a los usuarios explorar productos relacionados con PlayStation 2, consultar sus detalles y acceder al proceso de finalización de compra.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+El proyecto cuenta con distintas secciones que permiten conocer la tienda, navegar por los productos y comunicarse con el equipo.
 
-## React Compiler
+## Tecnologías utilizadas
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **React:** desarrollo de la interfaz de usuario mediante componentes.
+- **Vite:** herramienta para ejecutar y construir el proyecto.
+- **JavaScript:** lenguaje utilizado para la lógica de la aplicación.
+- **HTML5:** estructura del sitio.
+- **CSS3:** estilos y diseño visual.
+- **Bootstrap:** diseño y estilos de los componentes.
+- **React Router:** navegación entre las distintas páginas.
 
-## Expanding the ESLint configuration
+## Funcionalidades
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- Visualización del catálogo de productos.
+- Acceso al detalle de cada producto.
+- Sección de finalización de compra.
+- Página de contacto.
+- Página «Sobre nosotros».
+- Navegación entre las distintas secciones del sitio.
+
+## Instalación y ejecución
+
+Para ejecutar el proyecto localmente, es necesario tener instalado **Node.js** y **npm**.
+
+### 1. Clonar el repositorio
+
+```bash
+git clone https://github.com/santiago-elias-bravo/gordosPS2.git
+```
+
+### 2. Ingresar a la carpeta del proyecto
+
+```bash
+cd gordosPS2
+```
+
+### 3. Instalar las dependencias
+
+```bash
+npm install
+```
+
+### 4. Ejecutar el proyecto
+
+```bash
+npm run dev
+```
+
+Una vez iniciado, Vite mostrará en la terminal la dirección local para acceder al sitio desde el navegador. Generalmente es:
+
+```text
+http://localhost:5173
+```
+
+
+## Integrantes del grupo
+
+- Matías Barrientos (44183188) — matias.barrientos2805@gmail.com
+- Santiago Elias Bravo (42502007) — santiagoeliasbravo@gmail.com
+- Lucas Valentin Telleria (45825839) — valentintelleria90@gmail.com
+
+## Capturas de pantalla
+
+### Página de inicio
+
+![Página de inicio](./captura-inicio.png)
+
+### Catálogo de videojuegos
+
+![Catálogo de videojuegos](./captura-catalogo.png)
+
