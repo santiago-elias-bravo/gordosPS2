@@ -131,3 +131,287 @@ body,
 .texto-justificado {
   text-align: justify;
 }
+
+/* Modo claro */
+.app-container {
+  background-color: #ffffff;
+  color: #212529;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Modo oscuro: fondo y texto general */
+.app-container.modo-oscuro .inicio-ventajas {
+  background-color: #181d27 !important;
+}
+
+/* Fondos claros de Bootstrap */
+.app-container.modo-oscuro .bg-light {
+  background-color: #1e1e1e !important;
+}
+
+.app-container.modo-oscuro .bg-white {
+  background-color: #181818 !important;
+}
+
+/* Tarjetas y elementos de lista */
+.app-container.modo-oscuro .card,
+.app-container.modo-oscuro .list-group-item {
+  background-color: #222222;
+  color: #f1f1f1;
+  border-color: #444444;
+}
+
+/* Textos secundarios */
+.app-container.modo-oscuro .text-secondary,
+.app-container.modo-oscuro .text-muted {
+  color: #adb5bd !important;
+}
+
+/* Formularios */
+.app-container.modo-oscuro .form-control,
+.app-container.modo-oscuro .form-select {
+  background-color: #242424;
+  color: #f1f1f1;
+  border-color: #555555;
+}
+
+.app-container.modo-oscuro .form-control::placeholder {
+  color: #aaaaaa;
+}
+
+/* Enlaces */
+.app-container.modo-oscuro a {
+  color: #8ab4f8;
+}
+
+/* Texto oscuro de Bootstrap */
+.app-container.modo-oscuro .text-dark {
+  color: #f1f1f1 !important;
+}
+
+/* AJUSTES GENERALES MODO OSCURO */
+.app-container.modo-oscuro {
+  background-color: #12151c;
+  color: #e5e7eb;
+}
+
+/* Textos y títulos */
+.app-container.modo-oscuro h1,
+.app-container.modo-oscuro h2,
+.app-container.modo-oscuro h3,
+.app-container.modo-oscuro h4,
+.app-container.modo-oscuro h5,
+.app-container.modo-oscuro h6,
+.app-container.modo-oscuro label,
+.app-container.modo-oscuro p {
+  color: inherit;
+}
+
+/* Textos que Bootstrap muestra oscuros */
+.app-container.modo-oscuro .text-dark,
+.app-container.modo-oscuro .text-body {
+  color: #e5e7eb !important;
+}
+
+/* Textos secundarios */
+.app-container.modo-oscuro .text-secondary,
+.app-container.modo-oscuro .text-muted {
+  color: #aeb8c7 !important;
+}
+/* SECCIONES DE INICIO */
+.app-container.modo-oscuro .inicio-ventajas {
+  background-color: #181d27 !important;
+}
+
+.app-container.modo-oscuro .inicio-tarjeta {
+  background-color: #222936 !important;
+  color: #f1f5f9 !important;
+}
+
+.app-container.modo-oscuro .inicio-tarjeta .card-title {
+  color: #f1f5f9 !important;
+}
+
+.app-container.modo-oscuro .inicio-tarjeta .card-text {
+  color: #b8c3d3 !important;
+}
+
+/* TARJETAS Y CONTENEDORES */
+.app-container.modo-oscuro .card,
+.app-container.modo-oscuro .list-group-item {
+  background-color: #202630;
+  color: #e5e7eb;
+  border-color: #343d4b;
+}
+
+.app-container.modo-oscuro .card-header,
+.app-container.modo-oscuro .card-footer {
+  background-color: #252d39;
+  color: #e5e7eb;
+  border-color: #343d4b;
+}
+
+/* FORMULARIOS */
+.app-container.modo-oscuro .form-control,
+.app-container.modo-oscuro .form-select {
+  background-color: #1b222c;
+  color: #f1f5f9;
+  border-color: #465264;
+}
+
+.app-container.modo-oscuro .form-control:focus,
+.app-container.modo-oscuro .form-select:focus {
+  background-color: #1b222c;
+  color: #ffffff;
+  border-color: #6ea8fe;
+  box-shadow: 0 0 0 0.25rem rgba(110, 168, 254, 0.2);
+}
+
+.app-container.modo-oscuro .form-control::placeholder {
+  color: #9ca8b8;
+}
+
+.app-container.modo-oscuro .form-check-label {
+  color: #e5e7eb;
+}
+
+/* MODALES */
+.app-container.modo-oscuro .modal-content {
+  background-color: #202630;
+  color: #e5e7eb;
+  border-color: #343d4b;
+}
+
+.app-container.modo-oscuro .modal-header,
+.app-container.modo-oscuro .modal-footer {
+  border-color: #343d4b;
+}
+
+.app-container.modo-oscuro .modal-title,
+.app-container.modo-oscuro .modal-body {
+  color: #e5e7eb;
+}
+
+.app-container.modo-oscuro .btn-close {
+  filter: invert(1) grayscale(100%) brightness(200%);
+}
+
+/* TABLAS */
+.app-container.modo-oscuro .table {
+  --bs-table-color: #e5e7eb;
+  --bs-table-bg: #202630;
+  --bs-table-border-color: #343d4b;
+  --bs-table-striped-bg: #252d39;
+  --bs-table-striped-color: #e5e7eb;
+  --bs-table-hover-bg: #303b4a;
+  --bs-table-hover-color: #ffffff;
+}
+/* ALERTAS */
+.app-container.modo-oscuro .alert-info {
+  background-color: #173044;
+  color: #c5e7ff;
+  border-color: #28506b;
+}
+
+.app-container.modo-oscuro .alert-warning {
+  background-color: #3a301b;
+  color: #ffe5a3;
+  border-color: #655020;
+}
+
+.app-container.modo-oscuro .alert-danger {
+  background-color: #3a2025;
+  color: #ffc9cf;
+  border-color: #65333b;
+}
+
+.app-container.modo-oscuro .alert-success {
+  background-color: #19352a;
+  color: #bcebd0;
+  border-color: #28563e;
+}
+
+/* FONDOS CLAROS DE BOOTSTRAP */
+.app-container.modo-oscuro .bg-light {
+  background-color: #181d27 !important;
+}
+
+.app-container.modo-oscuro .bg-white {
+  background-color: #202630 !important;
+}
+
+/* BORDES Y DIVISORES */
+.app-container.modo-oscuro hr {
+  color: #697586;
+  opacity: 0.4;
+}
+
+.app-container.modo-oscuro .border {
+  border-color: #343d4b !important;
+}
+
+/* Sección "Lo que nos gusta de los clásicos" */
+.app-container.modo-oscuro .inicio-ventajas h2,
+.app-container.modo-oscuro .inicio-ventajas h3,
+.app-container.modo-oscuro .inicio-ventajas p {
+  color: #e5e7eb !important;
+}
+
+.sobre-nosotros-beneficios {
+  background-color: #f5f6fa;
+  color: #212529;
+}
+
+/* Modo oscuro */
+.app-container.modo-oscuro .sobre-nosotros-beneficios {
+  background-color: #181d27 !important;
+}
+
+.app-container.modo-oscuro .sobre-nosotros-beneficios h2 {
+  color: #f1f5f9 !important;
+}
+
+.app-container.modo-oscuro .sobre-nosotros-beneficios p {
+  color: #adb8c7 !important;
+}
+
+/* Lupa del buscador */
+.app-container.modo-oscuro .input-group-text {
+  background-color: #242c38;
+  color: #e5e7eb;
+  border-color: #465264;
+}
+
+/* Checkbox de stock */
+.app-container.modo-oscuro .form-check-label {
+  color: #e5e7eb;
+}
+
+.app-container.modo-oscuro .form-check-input {
+  background-color: #242c38;
+  border-color: #64748b;
+}
+
+/* borde azul  de boton */
+.app-container.modo-oscuro .form-check-input:checked {
+  background-color: #0d6efd;
+  border-color: #0d6efd;
+}
+
+.boton-azul {
+  border-color: #0d6efd !important;
+  color: #0d6efd !important;
+}
+
+.boton-azul:hover {
+  background-color: #0d6efd !important;
+  border-color: #0d6efd !important;
+  color: white !important;
+}
+
+/* Transición de fondos en Inicio */
+.inicio-portada,
+.inicio-ventajas,
+.inicio-final {
+  transition: background-color 0.4s ease;
+}

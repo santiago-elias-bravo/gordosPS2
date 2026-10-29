@@ -4,8 +4,9 @@ import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import Container from "react-bootstrap/Container";
 import Badge from "react-bootstrap/Badge";
+import { Button } from "react-bootstrap";
 
-function NavbarTienda({ cantidadCarrito }) {
+function NavbarTienda({ cantidadCarrito, modoOscuro, cambiarModo }) {
   return (
     <Navbar
       bg="dark"
@@ -54,6 +55,13 @@ function NavbarTienda({ cantidadCarrito }) {
             <Nav.Link as={Link} to="/carrito">
               🛒 Carrito <Badge bg="primary">{cantidadCarrito}</Badge>
             </Nav.Link>
+            <Button
+              variant="outline-light"
+              onClick={cambiarModo}
+              className="ms-lg-3 boton-azul"
+            >
+              {modoOscuro ? "☀️" : "🌙"}
+            </Button>
           </Nav>
         </Navbar.Collapse>
       </Container>

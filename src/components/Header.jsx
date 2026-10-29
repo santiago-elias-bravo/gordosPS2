@@ -1,9 +1,13 @@
 import Navbar from "./Navbar";
 
-function Header({ cantidadCarrito }) {
+function Header({ cantidadCarrito, modoOscuro, cambiarModo }) {
   return (
     <header>
-      <Navbar cantidadCarrito={cantidadCarrito}/>
+      <Navbar
+        cantidadCarrito={cantidadCarrito}
+        modoOscuro={modoOscuro}
+        cambiarModo={cambiarModo}
+      />
     </header>
   );
 }

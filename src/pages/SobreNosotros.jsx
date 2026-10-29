@@ -51,7 +51,7 @@ function SobreNosotros() {
         </Row>
       </Container>
 
-      <section className="py-5" style={{ backgroundColor: "#f5f6fa" }}>
+      <section className="py-5 sobre-nosotros-beneficios">
         <Container>
           <div className="mb-4">
             <h2 className="fw-bold">Lo que nos gusta de los clásicos</h2>

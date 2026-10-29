@@ -189,10 +189,22 @@ function App() {
     return true;
   }
 
+  const [modoOscuro, setModoOscuro] = useState(() => {
+    return localStorage.getItem("modoOscuro") === "true";
+  });
+
+  useEffect(() => {
+    localStorage.setItem("modoOscuro", modoOscuro);
+  }, [modoOscuro]);
+
   return (
-    <div className="app-container">
+    <div className={`app-container ${modoOscuro ? "modo-oscuro" : ""}`}>
       <ScrollToTop />
-      <Header cantidadCarrito={cantidadTotal} />
+      <Header
+        cantidadCarrito={cantidadTotal}
+        modoOscuro={modoOscuro}
+        cambiarModo={() => setModoOscuro(!modoOscuro)}
+      />
 
       <main className="main-content">
         <Routes>
